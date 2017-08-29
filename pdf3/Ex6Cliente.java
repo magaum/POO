@@ -4,18 +4,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 /*
 	 * Uma loja o contratou para desenvolver um aplicativo para gerenciamento de
-	 * relacionamento com clientes e mineração de dados. O objetivo do é armazenar
-	 * informações sobre cada cliente e o total de gasto por cada cliente ao longo
-	 * de 12 meses. Dessa forma escreva um aplicativo que armazene informações de
-	 * clientes como: Nome, Email, Telefone e Endereço e de dinheiro gasto para cada
-	 * uns dos últimos 12 meses. O Aplicativo deve informar o montante gasto por
-	 * todos os clientes para cada mês e para o total do período de 12 meses, além
-	 * de informar qual foi o cliente que mais gastou dinheiro por mês e no período
-	 * total de 12 meses. O aplicativo também deve permitir cadastro e exclusão de
-	 * clientes e também a possibilidade editar dados de clientes como telefone ou
-	 * endereço.
+	 * relacionamento com clientes e mineraÃ§Ã£o de dados. O objetivo do Ã© armazenar
+	 * informaÃ§Ãµes sobre cada cliente e o total de gasto por cada cliente ao longo
+	 * de 12 meses. Dessa forma escreva um aplicativo que armazene informaÃ§Ãµes de
+	 * clientes como: Nome, Email, Telefone e endereco e de dinheiro gasto para cada
+	 * uns dos Ãºltimos 12 meses. O Aplicativo deve informar o montante gasto por
+	 * todos os clientes para cada mÃªs e para o total do perÃ­odo de 12 meses, alÃ©m
+	 * de informar qual foi o cliente que mais gastou dinheiro por mÃªs e no perÃ­odo
+	 * total de 12 meses. O aplicativo tambÃ©m deve permitir cadastro e exclusÃ£o de
+	 * clientes e tambÃ©m a possibilidade editar dados de clientes como telefone ou
+	 * endereco.
 	 */
 
 public class Ex6Cliente {
@@ -24,48 +26,69 @@ public class Ex6Cliente {
 
 	int tam = 2;
 	private int telefone;
-	private float[] meses = new float[tam];
+	private float[] meses;
 	private String nome;
 	private String email;
-	private String endereço;
+	private String endereco;
 
 	ArrayList<Ex6Cliente> clientes = new ArrayList<>();
 
 	public Ex6Cliente() {
-		super();
 	}
 
-	public Ex6Cliente(String nome, String email, int telefone, String endereço, float[] meses) {
+	public Ex6Cliente(int telefone, String nome, String email, String endereco, float meses[]) {
 		super();
+		this.meses = meses;
+		this.telefone = telefone;
 		this.nome = nome;
 		this.email = email;
-		this.telefone = telefone;
-		this.endereço = endereço;
-		this.meses = meses;
+		this.endereco = endereco;
 	}
 
-	public float gastolMensal(int mes) {
-		mes--;
-		float total = 0;
-		for (int i = 0; i < clientes.size(); i++) {
-			total += clientes.get(i).meses[mes];
+	public void cadastro() {
+
+		System.out.print("Digite o nome do cliente: ");
+		this.nome = scan.next();
+		System.out.print("Digite o email do cliente: ");
+		this.email = scan.next();
+		System.out.print("Digite o celular do cliente: ");
+		this.telefone = scan.nextInt();
+		System.out.print("Digite o endereÃ§o do cliente: ");
+		this.endereco = scan.next();
+		meses = new float[tam];
+		for (int i = 0; i < tam; i++) {
+			System.out.print("Digite o gasto do cliente no mes " + (i + 1) + ": ");
+			meses[i] = scan.nextFloat();
 		}
-		return total;
+		Ex6Cliente cliente = new Ex6Cliente(telefone, nome, email, endereco,meses);
+		clientes.add(cliente);
+		System.out.println((this.nome) + " foi adicionado");
 	}
 
-	public float gastoAnual() {
-		int mes = 0;
-		float total = 0;
+	public void clienteGastaMaisAnual() {
+		int mes = 0, indice = 0;
+		float total = 0, gasto = 0;
 		for (int i = 0; i < clientes.size(); i++) {
+			float gastoAno[] = clientes.get(i).getMeses();
 			while (mes < tam) {
-				total += clientes.get(i).meses[mes];
+				total += gastoAno[mes];
 				mes++;
 			}
+			if (total > gasto) {
+				gasto = total;
+				indice = i;
+				System.out.println(i);
+			}
+			mes = 0;
+			total = 0;
 		}
-		return total;
+		System.out.printf("Maior gasto anual R$ %.2f",gasto);
+		System.out.println("\nCliente: " + clientes.get(indice).getNome());
 	}
 
-	public void clienteGastaMaisMensal(int mes) {
+	public void clienteGastaMaisMensal() {
+		System.out.print("Digite o mes para ser analisado:");
+		int mes = scan.nextInt();
 		mes--;
 		float total = 0, gasto = 0;
 		int indice = 0;
@@ -76,70 +99,85 @@ public class Ex6Cliente {
 				indice = i;
 			}
 		}
-		System.out.println("Maior gasto mensal\nCliente: " + clientes.get(indice));
+		System.out.printf("Maior gasto mensal: R$ %.2f",gasto);
+		System.out.println("\nCliente: " + clientes.get(indice).getNome());
 	}
 
-	public void clienteGastaMaisAnual() {
+	public void gastoAnual() {
 		int mes = 0;
-		float total = 0, gasto = 0;
-		int indice = 0;
+		float total = 0;
 		for (int i = 0; i < clientes.size(); i++) {
 			while (mes < tam) {
 				total += clientes.get(i).meses[mes];
+				mes++;
 			}
-			if (total > gasto) {
-				gasto = total;
-				indice = i;
-			}
-			total = 0;
+			mes = 0;
 		}
-		System.out.println("Maior gasto anual\nCliente: " + clientes.get(indice));
+		System.out.printf("Total gasto no ano: R$ %.2f\n",total);
 	}
 
-	public void cadastro(String nome, String email, int telefone, String endereço, float[] meses) {
-		this.nome = nome;
-		this.email = email;
-		this.telefone = telefone;
-		this.endereço = endereço;
-		this.meses = meses;
-		clientes.add(this);
-		System.out.println((this) + "foi adicionado");
+	public void gastolMensal() {
+		System.out.print("Digite o mes para ser analisado:");
+		int mes = scan.nextInt();
+		mes--;
+		float total = 0;
+		for (int i = 0; i < clientes.size(); i++) {
+			total += clientes.get(i).meses[mes];
+		}
+		System.out.print("Total gasto no mes "+(mes+1));
+		System.out.printf(" R$ %.2f\n",total);
 	}
 
-	public void exclusão(String nome) {
-		setNome(nome);
-		clientes.remove(getNome());
-		System.out.println(nome + " foi removido");
+	public void exclusÃ£o() {
+		System.out.println("Digite o nome do cliente: ");
+		String nome = scan.next();
+		int i = setIndice(nome);
+		if (i >= 0) {
+			clientes.remove(i);
+			System.out.println(nome + " foi removido");
+		} else
+			System.out.println("Cliente " + nome + " nÃ£o existe");
 	}
 
 	public void editarDados() {
-		listaClientes();
-		System.out.println("Digite um cliente para editar");
-		String nome = scan.next();
-		setNome(nome);
-		System.out.println("Qual campo será editado: \n");
-		System.out.println("telefone\nnome\nemail\nemail\nendereço\nendereço");
+		int indice = -1;
+		do {
+			listaClientes();
+			System.out.println("\nDigite um cliente para editar");
+			nome = scan.next();
+			indice = setIndice(nome);
+			if (indice < 0) {
+				System.out.println("Cliente " + nome + " nÃ£o existe");
+			}
+		} while (indice < 0);
+		System.out.println("Qual campo serÃ¡ editado: \n");
+		System.out.println("Telefone\nNome\nEmail\nEndereco\n");
 		String campo = scan.next();
+		campo = campo.toLowerCase();
 		switch (campo) {
 		case "telefone": {
-			System.out.println("Qual será o novo número: ");
+			System.out.println("Qual serÃ¡ o novo nÃºmero: ");
 			int novo = scan.nextInt();
-			setTelefone(novo);
+			clientes.get(indice).setTelefone(novo);
+			break;
 		}
 		case "nome": {
 			System.out.println("Digite o nome nome: ");
 			String novo = scan.next();
-			setNome(novo);
+			clientes.get(indice).setNome(novo);
+			break;
 		}
 		case "email": {
-			System.out.println("Qual será o email: ");
+			System.out.println("Qual serÃ¡ o email: ");
 			String novo = scan.next();
-			setEmail(novo);
+			clientes.get(indice).setEmail(novo);
+			break;
 		}
-		case "endereço": {
-			System.out.println("Qual será o novo número: ");
+		case "endereco": {
+			System.out.println("Qual serÃ¡ o novo nÃºmero: ");
 			String novo = scan.next();
-			setEndereço(novo);
+			clientes.get(indice).setEndereco(novo);
+			break;
 		}
 
 		}
@@ -148,9 +186,22 @@ public class Ex6Cliente {
 
 	public void listaClientes() {
 		for (int i = 0; i < clientes.size(); i++) {
-			System.out.println(clientes.toString());
+			System.out.println();
+			System.out.println("Cliente " + (i + 1) + ":");
+			System.out.println("Nome: " + clientes.get(i).getNome());
+			System.out.println("Email: " + clientes.get(i).getEmail());
+			System.out.println("EndereÃ§o: " + clientes.get(i).getEndereco());
+			System.out.println("Telefone: " + clientes.get(i).getTelefone());
 		}
+	}
 
+	private int setIndice(String nome) {
+		for (int i = 0; i < clientes.size(); i++) {
+			if (nome.equals(clientes.get(i).getNome())) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	public int getTelefone() {
@@ -185,18 +236,18 @@ public class Ex6Cliente {
 		this.email = email;
 	}
 
-	public String getEndereço() {
-		return endereço;
+	public String getEndereco() {
+		return endereco;
 	}
 
-	public void setEndereço(String endereço) {
-		this.endereço = endereço;
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 
-	@Override
-	public String toString() {
-		return "[telefone=" + telefone + ", meses=" + Arrays.toString(meses) + ", nome=" + nome + ", email=" + email
-				+ ", endereço=" + endereço + ", clientes=" + clientes + "]";
+	public static String menu() {
+		String opcao = JOptionPane.showInputDialog("1 - Listar clientes\n" + "2 - Adicionar cliente\n"
+				+ "3 - Editar dados de clientes\n" + "4 - Excluir clientes\n" + "5 - Cliente com maior gasto anual\n"
+				+ "6 - Cliente com maior gasto mensal\n" + "7 - Total gasto anual\n" + "8 - Total gasto mensal\n");
+		return opcao;
 	}
-
 }
