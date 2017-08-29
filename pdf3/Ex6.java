@@ -1,7 +1,5 @@
 package poo;
 
-import java.util.Scanner;
-
 public class Ex6 {
 	/*
 	 * Uma loja o contratou para desenvolver um aplicativo para gerenciamento de
@@ -19,11 +17,10 @@ public class Ex6 {
 	public static void main(String[] args) {
 		
 		boolean flag = true;
-		Scanner scan = new Scanner(System.in);
 		String inicio;
-		Ex6Cliente clientes = new Ex6Cliente();
+		Ex6Clientes clientes = new Ex6Clientes();
 		do {
-		inicio = Ex6Cliente.menu();
+		inicio = Ex6Pessoa.menu();
 		if(inicio == null) {
 			flag = false;
 		}
@@ -46,19 +43,19 @@ public class Ex6 {
 			break;
 		}
 		case "5" : {
-			clientes.clienteGastaMaisAnual();
+			Ex6Raspagem.clienteGastaMaisAnual();
 			break;
 		}
 		case "6" : {
-			clientes.clienteGastaMaisMensal();
+			Ex6Raspagem.clienteGastaMaisMensal();
 			break;
 		}
 		case "7" : {
-			clientes.gastoAnual();
+			Ex6Raspagem.gastoAnual();
 			break;
 		}
 		case "8" : {
-			clientes.gastolMensal();
+			Ex6Raspagem.gastolMensal();
 			break;
 		}
 		default : { 
