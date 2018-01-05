@@ -15,9 +15,9 @@ public class Ex2 {
 
 		int p = equilibrio(array, n);
 		if (p == -1) {
-			System.out.println("Indice de equilibrio n„o encontrado");
+			System.out.println("Indice de equilibrio n√£o encontrado");
 		} else {
-			System.out.println(p + " È o indice de equilibrio");
+			System.out.println(p + " √© o indice de equilibrio");
 		}
 	}
 
