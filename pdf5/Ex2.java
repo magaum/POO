@@ -6,7 +6,7 @@ public class Ex2 {
 	public static void main(String args[]) {
 		Scanner scan = new Scanner(System.in);
 		int tam = 0;
-		System.out.println("Apenas os numeros entre 1 e 20 s„o validos");
+		System.out.println("Apenas os numeros entre 1 e 20 s√£o validos");
 		do {
 			System.out.print("Digite o tamanho do lado do quadradado: ");
 			tam = scan.nextInt();
