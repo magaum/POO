@@ -20,31 +20,31 @@ public class Ex3 {
 	}
 
 	public static void aberto(int num) {
-		int espacoDireita = 25; // EspaÃ§os da direita
-		int espacoMeio = 0; // EspaÃ§os do meio
-		int auxEspacoMeio = 0; // Variavel para manter valor do espaÃ§o do meio
-		int auxEspaco = espacoDireita - 1; // Variavel para manter valor do espaÃ§o da direita
+		int espacoDireita = 25; // Espaços da direita
+		int espacoMeio = 0; // Espaços do meio
+		int auxEspacoMeio = 0; // Variavel para manter valor do espaço do meio
+		int auxEspaco = espacoDireita - 1; // Variavel para manter valor do espaço da direita
 		int inicio = 65; // Valor de "A" em ascii
-		for (int i = 65; i <= num; i++) { //IteraÃ§Ãµes de "A" atÃ© o valor digitado na linha 14
-			for (int j = 64; j < i; j++) { //VariÃ¡vel j sempre fica atrÃ¡s de i para ser incrementada duas vezes
-				while (espacoDireita > 0) {//imprime espaÃ§os da direita
+		for (int i = 65; i <= num; i++) { //Iterações de "A" até o valor digitado na linha 14
+			for (int j = 64; j < i; j++) { //Variável j sempre fica atrás de i para ser incrementada duas vezes
+				while (espacoDireita > 0) {//imprime espaços da direita
 					System.out.print(" ");
 					espacoDireita--;
 				}
-				if (j < 66) //A vale 65 em Ascii, todas as outras letras serÃ£o impressas duas vezes, menos A
+				if (j < 66) //A vale 65 em Ascii, todas as outras letras serão impressas duas vezes, menos A
 					System.out.printf("%c", inicio);
-				while (espacoMeio > 0) {//Imprime espaÃ§os do meio
+				while (espacoMeio > 0) {//Imprime espaços do meio
 					System.out.print(" ");
 					espacoMeio--;
 				}
 			}
-			auxEspacoMeio += 2; //Incrementa espaÃ§os do meio
-			espacoMeio = auxEspacoMeio; //Retorna valor do espaÃ§o do meio
-			espacoDireita = auxEspaco--;//decrementa espaÃ§os da direita
+			auxEspacoMeio += 2; //Incrementa espaços do meio
+			espacoMeio = auxEspacoMeio; //Retorna valor do espaço do meio
+			espacoDireita = auxEspaco--;//decrementa espaços da direita
 			inicio++;//Passa para a proxima letra do alfabeto
 			System.out.println();
 		}
-		fechado(num, espacoDireita, inicio, espacoMeio, auxEspaco, auxEspacoMeio); //Chama outra funÃ§Ã£o
+		fechado(num, espacoDireita, inicio, espacoMeio, auxEspaco, auxEspacoMeio); //Chama outra função
 	}
 
 	public static void fechado(int num, int espacoDireita, int inicio, int espacoMeio, int auxEspaco,
